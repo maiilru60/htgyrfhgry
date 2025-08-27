@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -439,7 +440,7 @@
                 <p class="text-gray-800 text-xl font-semibold">Свадебная Фотобудка</p>
                 <p class="text-gray-600 text-lg">Запечатлите волшебные моменты нашего торжества</p>
                 <div class="quality-indicator inline-block">
-                    📸 4K Качество • 20 Фотографий
+                    📸 Full HD Качество • 20 Фотографий
                 </div>
             </div>
 
@@ -472,7 +473,7 @@
             <div class="flex items-center justify-between">
                 <div class="elegant-glass rounded-2xl px-4 py-2 flex items-center space-x-2">
                     <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                    <span class="text-white text-sm font-semibold">4K Live</span>
+                    <span class="text-white text-sm font-semibold">Full HD Live</span>
                 </div>
                 
                 <div class="elegant-glass rounded-2xl px-4 py-2">
@@ -598,7 +599,7 @@
                 this.maxPhotos = 20;
                 this.isCapturing = false;
                 this.serverUrl = 'https://fg-tlaz.onrender.com'; 
-                this.highQuality = true;
+                this.highQuality = false; // Изменено на false для ускорения
 
                 this.initElements();
                 this.bindEvents();
@@ -720,8 +721,8 @@
                     const constraints = {
                         video: { 
                             facingMode: this.facingMode,
-                            width: { ideal: 4096, min: 1920 },
-                            height: { ideal: 2160, min: 1080 },
+                            width: { ideal: 1920, max: 1920 },
+                            height: { ideal: 1080, max: 1080 },
                             frameRate: { ideal: 30, min: 24 }
                         },
                         audio: false
@@ -742,19 +743,6 @@
                     });
                     
                     console.log(`Камера запущена: ${this.videoStream.videoWidth}x${this.videoStream.videoHeight}`);
-                    
-                    const track = this.stream.getVideoTracks()[0];
-                    if (window.ImageCapture) {
-                        try {
-                            this.imageCapture = new ImageCapture(track);
-                            console.log('ImageCapture API is available.');
-                        } catch (e) {
-                            console.error('Failed to create ImageCapture:', e);
-                            this.imageCapture = null;
-                        }
-                    } else {
-                        console.log('ImageCapture API is not available.');
-                    }
                     
                     this.updatePhotosRemaining();
                     
@@ -876,22 +864,14 @@
                 this.showInstantCapture();
 
                 try {
-                    let imageBitmap;
+                    console.log('Capturing with canvas');
+                    const videoWidth = this.videoStream.videoWidth;
+                    const videoHeight = this.videoStream.videoHeight;
+                    this.canvas.width = videoWidth;
+                    this.canvas.height = videoHeight;
                     
-                    if (this.imageCapture) {
-                        console.log('Capturing with ImageCapture API');
-                        const photoBlob = await this.imageCapture.takePhoto();
-                        imageBitmap = await createImageBitmap(photoBlob);
-                    } else {
-                        console.log('Capturing with canvas fallback');
-                        const videoWidth = this.videoStream.videoWidth;
-                        const videoHeight = this.videoStream.videoHeight;
-                        this.canvas.width = videoWidth;
-                        this.canvas.height = videoHeight;
-                        
-                        this.ctx.drawImage(this.videoStream, 0, 0, videoWidth, videoHeight);
-                        imageBitmap = await createImageBitmap(this.canvas);
-                    }
+                    this.ctx.drawImage(this.videoStream, 0, 0, videoWidth, videoHeight);
+                    const imageBitmap = await createImageBitmap(this.canvas);
 
                     // Создаем целевой canvas с размером 1080x1920
                     const targetCanvas = document.createElement('canvas');
@@ -939,10 +919,10 @@
                     this.addElegantWatermark(targetCtx, targetCanvas.width, targetCanvas.height, this.userName);
 
                     // Получаем blob из targetCanvas
-                    const blob = await new Promise(resolve => targetCanvas.toBlob(resolve, 'image/jpeg', 0.9));
+                    const blob = await new Promise(resolve => targetCanvas.toBlob(resolve, 'image/jpeg', 0.8));
 
                     // Создаем dataURL для миниатюры
-                    const thumbnailUrl = targetCanvas.toDataURL('image/jpeg', 0.7);
+                    const thumbnailUrl = targetCanvas.toDataURL('image/jpeg', 0.6);
                     this.addPhotoThumbnail(thumbnailUrl);
                     
                     this.photoCount++;
@@ -950,7 +930,10 @@
                     this.updatePhotosRemaining();
 
                     // Отправляем blob на сервер
-                    await this.uploadPhoto(blob);
+                    this.uploadPhoto(blob).catch(error => {
+                        console.error('Upload error:', error);
+                        this.showError('Ошибка отправки фото');
+                    });
 
                     // Освобождаем ресурсы
                     imageBitmap.close();
@@ -1036,6 +1019,7 @@
                             if (xhr.status >= 200 && xhr.status < 300) {
                                 const result = JSON.parse(xhr.responseText);
                                 console.log('Фото успешно отправлено:', result);
+                                this.showSuccess();
                                 resolve(result);
                             } else {
                                 const error = new Error(`HTTP ${xhr.status}: ${xhr.responseText.substring(0, 100)}`);
