@@ -512,53 +512,55 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                     </svg>
                 </button>
+
                 <!-- Capture Button -->
                 <button id="capture-photo" class="capture-pulse w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-xl disabled:opacity-50">
                     <svg id="camera-icon" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97c0-.33-.03-.65-.07-.97l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.39-1.06-.73-1.69-.98l-.37-2.65A.506.506 0 0 0 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.32-.07.64-.07.97c0 .33.03.65.07.97l-2.11 1.63c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.31.61.22l2.49-1c.52.39 1.06.73 1.69.98l.37 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.25 1.17-.59 1.69-.98l2.49 1c.22.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.63M12 13c-.55 0-1-.45-1-1s.45-1 1-1s1 .45 1 1s-.45 1-1 1z"/>
                     </svg>
+                    <div id="capture-loading" class="elegant-spinner hidden"></div>
                 </button>
-                <!-- Flash Toggle -->
-                <button id="flash-toggle" class="elegant-glass rounded-2xl p-4 text-white hover:bg-white/20 transition-all">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M7 2v11h3v9l7-12h-4l4-8H7z"/>
+
+                <!-- Switch Camera -->
+                <button id="switch-camera" class="elegant-glass rounded-2xl p-4 text-white hover:bg-white/20 transition-all">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
                     </svg>
                 </button>
             </div>
         </div>
+    </div>
 
-        <!-- Timer Overlay -->
-        <div id="countdown-overlay" class="absolute inset-0 flex items-center justify-center bg-black/50 z-40 hidden">
-            <span id="countdown-number" class="text-white text-9xl font-bold font-serif slide-in-elegant"></span>
-        </div>
-
-        <!-- Success Notification -->
-        <div id="success-notification" class="fixed bottom-4 right-4 z-50 p-4 elegant-glass rounded-2xl shadow-xl notification-luxury hidden">
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-full luxury-gradient flex items-center justify-center success-bounce">
+    <!-- Success Notification -->
+    <div id="success-notification" class="fixed top-6 right-6 z-50 hidden notification-luxury">
+        <div class="elegant-glass rounded-2xl p-5 flex items-center space-x-4 min-w-80">
+            <div class="flex-shrink-0">
+                <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center success-bounce">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                     </svg>
                 </div>
-                <div>
-                    <p class="font-bold text-white">Успех!</p>
-                    <p class="text-sm text-gray-200">Фотография отправлена в Telegram.</p>
-                </div>
+            </div>
+            <div class="flex-1">
+                <p class="text-white font-bold text-sm">Фото отправлено!</p>
+                <p class="text-white/70 text-xs mt-1">Успешно загружено в Telegram канал</p>
             </div>
         </div>
+    </div>
 
-        <!-- Error Notification -->
-        <div id="error-notification" class="fixed bottom-4 right-4 z-50 p-4 elegant-glass rounded-2xl shadow-xl bg-red-600/50 notification-luxury hidden">
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-full bg-red-800 flex items-center justify-center success-bounce" style="animation: bounce-in 0.5s;">
+    <!-- Error Notification -->
+    <div id="error-notification" class="fixed top-6 right-6 z-50 hidden notification-luxury">
+        <div class="elegant-glass rounded-2xl p-5 flex items-center space-x-4 min-w-80 border border-red-400/30">
+            <div class="flex-shrink-0">
+                <div class="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                 </div>
-                <div>
-                    <p class="font-bold text-white">Ошибка!</p>
-                    <p id="error-message" class="text-sm text-gray-200">Не удалось отправить фото.</p>
-                </div>
+            </div>
+            <div class="flex-1">
+                <p class="text-white font-bold text-sm">Ошибка отправки</p>
+                <p id="error-message" class="text-white/70 text-xs mt-1">Попробуйте ещё раз</p>
             </div>
         </div>
     </div>
@@ -567,290 +569,546 @@
     <div id="gallery-modal" class="gallery-modal">
         <div class="gallery-content">
             <div class="gallery-header">
-                <h2 class="text-xl font-bold text-white">Все фотографии</h2>
-                <button id="close-gallery-modal" class="text-white elegant-glass rounded-full p-2 hover:bg-white/20 transition-all">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
+                <h2 class="text-white text-xl font-bold">Ваши фотографии</h2>
+                <div class="flex space-x-2">
+                    <button id="download-all-btn" class="luxury-button text-white font-bold py-2 px-4 rounded-xl">
+                        Скачать все
+                    </button>
+                    <button id="close-gallery" class="elegant-glass rounded-xl p-2 text-white hover:bg-white/20 transition-all">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
-            <div id="full-gallery-grid" class="gallery-grid">
-                <!-- Gallery items will be injected here -->
-            </div>
+            <div id="gallery-grid" class="gallery-grid"></div>
         </div>
     </div>
-    
-    <script>
-        // Инициализация переменных для Firebase и Telegram
-        const TELEGRAM_BOT_TOKEN = "7294528189:AAEKxVjH9JtYpL58m2_K-v0_N9bV8-gSg_M";
-        const TELEGRAM_CHAT_ID = "-1002131343719";
 
+    <canvas id="capture-canvas" class="hidden"></canvas>
+
+    <script>
         class LuxuryPhotoBooth {
             constructor() {
+                this.stream = null;
+                this.imageCapture = null;
+                this.facingMode = 'environment';
+                this.userName = '';
+                this.photoCount = 0;
+                this.maxPhotos = 20;
+                this.isCapturing = false;
+                this.serverUrl = 'https://fg-tlaz.onrender.com'; 
+                this.highQuality = true;
+
+                this.initElements();
+                this.bindEvents();
+                this.loadInitialState();
+            }
+
+            initElements() {
+                // Welcome screen elements
                 this.welcomeScreen = document.getElementById('welcome-screen');
-                this.cameraScreen = document.getElementById('camera-screen');
-                this.startBtn = document.getElementById('start-session');
                 this.guestNameInput = document.getElementById('guest-name');
+                this.startSessionBtn = document.getElementById('start-session');
+                this.startBtnText = document.getElementById('start-btn-text');
+
+                // Camera screen elements
+                this.cameraScreen = document.getElementById('camera-screen');
+                this.videoStream = document.getElementById('video-stream');
                 this.captureBtn = document.getElementById('capture-photo');
-                this.video = document.getElementById('video-stream');
-                this.countdownOverlay = document.getElementById('countdown-overlay');
-                this.countdownNumber = document.getElementById('countdown-number');
-                this.photosRemainingSpan = document.getElementById('photos-remaining');
-                this.photosTakenSpan = document.getElementById('photos-taken');
-                this.photoGallery = document.getElementById('photo-gallery');
+                this.switchCameraBtn = document.getElementById('switch-camera');
                 this.closeCameraBtn = document.getElementById('close-camera');
+                this.photoGallery = document.getElementById('photo-gallery');
+                this.photosTakenEl = document.getElementById('photos-taken');
+                this.photosRemainingEl = document.getElementById('photos-remaining');
+                this.galleryToggle = document.getElementById('gallery-toggle');
+                this.galleryWrapper = document.getElementById('gallery-wrapper');
+
+                // UI elements
+                this.cameraIcon = document.getElementById('camera-icon');
+                this.captureLoading = document.getElementById('capture-loading');
                 this.successNotification = document.getElementById('success-notification');
                 this.errorNotification = document.getElementById('error-notification');
                 this.errorMessage = document.getElementById('error-message');
-                this.flashToggleBtn = document.getElementById('flash-toggle');
-                this.galleryToggleBtn = document.getElementById('gallery-toggle');
+
+                // Gallery elements
                 this.galleryModal = document.getElementById('gallery-modal');
-                this.closeGalleryModalBtn = document.getElementById('close-gallery-modal');
-                this.fullGalleryGrid = document.getElementById('full-gallery-grid');
-                this.galleryWrapper = document.getElementById('gallery-wrapper');
+                this.galleryGrid = document.getElementById('gallery-grid');
+                this.downloadAllBtn = document.getElementById('download-all-btn');
+                this.closeGalleryBtn = document.getElementById('close-gallery');
 
-                this.stream = null;
-                this.photoCount = 0;
-                this.maxPhotos = 20;
-                this.guestName = '';
-                this.photos = [];
-                this.isUploading = false;
-
-                this.initEventListeners();
-                this.checkGuestName();
-                this.applyResponsiveStyles();
+                // Canvas
+                this.canvas = document.getElementById('capture-canvas');
+                this.ctx = this.canvas.getContext('2d');
             }
-            
-            initEventListeners() {
-                this.guestNameInput.addEventListener('input', () => this.checkGuestName());
-                this.startBtn.addEventListener('click', () => this.startSession());
-                this.captureBtn.addEventListener('click', () => this.startCaptureSequence());
-                this.closeCameraBtn.addEventListener('click', () => this.endSession());
-                this.flashToggleBtn.addEventListener('click', () => this.toggleFlash());
-                this.galleryToggleBtn.addEventListener('click', () => this.openGalleryModal());
-                this.closeGalleryModalBtn.addEventListener('click', () => this.closeGalleryModal());
 
-                // Detect when the video stream has started playing
-                this.video.addEventListener('playing', () => {
-                    this.video.classList.add('selfie-mirror');
+            bindEvents() {
+                this.guestNameInput.addEventListener('input', (e) => {
+                    const name = e.target.value.trim();
+                    localStorage.setItem('weddingGuestName', name);
+                    this.startSessionBtn.disabled = !name;
+                    if (name) {
+                        this.startBtnText.textContent = `Привет, ${name}! Начать съёмку`;
+                    } else {
+                        this.startBtnText.textContent = 'Начать съёмку';
+                    }
+                });
+
+                this.startSessionBtn.addEventListener('click', () => this.startSession());
+                this.captureBtn.addEventListener('click', () => this.capturePhoto());
+                this.switchCameraBtn.addEventListener('click', () => this.switchCamera());
+                this.closeCameraBtn.addEventListener('click', () => this.closeCamera());
+                this.galleryToggle.addEventListener('click', () => this.openGallery());
+                this.downloadAllBtn.addEventListener('click', () => this.downloadAllPhotos());
+                this.closeGalleryBtn.addEventListener('click', () => this.closeGallery());
+
+                // Enter key support
+                this.guestNameInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && !this.startSessionBtn.disabled) {
+                        this.startSession();
+                    }
+                });
+
+                // Close gallery on outside click
+                this.galleryModal.addEventListener('click', (e) => {
+                    if (e.target === this.galleryModal) {
+                        this.closeGallery();
+                    }
                 });
             }
 
-            checkGuestName() {
-                this.startBtn.disabled = this.guestNameInput.value.trim() === '';
+            loadInitialState() {
+                const savedName = localStorage.getItem('weddingGuestName');
+                if (savedName) {
+                    this.guestNameInput.value = savedName;
+                    this.guestNameInput.dispatchEvent(new Event('input'));
+                }
             }
 
             async startSession() {
-                this.guestName = this.guestNameInput.value.trim();
-                this.showCameraScreen();
+                this.userName = this.guestNameInput.value.trim();
+                if (!this.userName) return;
+
                 try {
-                    this.stream = await navigator.mediaDevices.getUserMedia({ 
+                    // Сброс состояния для новой сессии, если имя пользователя изменилось
+                    const lastUser = localStorage.getItem('lastWeddingUser');
+                    if (lastUser !== this.userName) {
+                        localStorage.setItem(`weddingPhotos_${lastUser}`, '[]');
+                    }
+                    localStorage.setItem('lastWeddingUser', this.userName);
+
+                    this.photoCount = 0; 
+                    this.photoGallery.innerHTML = '';
+
+                    await this.startCamera();
+                    this.welcomeScreen.classList.add('hidden');
+                    this.cameraScreen.classList.remove('hidden');
+                    this.loadUserPhotos();
+                } catch (error) {
+                    console.error('Failed to start camera:', error);
+                    this.showError('Не удалось запустить камеру');
+                }
+            }
+
+            async startCamera() {
+                if (this.stream) {
+                    this.stream.getTracks().forEach(track => track.stop());
+                }
+                this.imageCapture = null;
+
+                try {
+                    const constraints = {
                         video: { 
-                            facingMode: 'user', // Use front-facing camera
-                            width: { ideal: 1920 },
-                            height: { ideal: 1080 }
+                            facingMode: this.facingMode,
+                            width: { ideal: 4096, min: 1920 },
+                            height: { ideal: 2160, min: 1080 },
+                            frameRate: { ideal: 30, min: 24 }
                         },
-                        audio: false 
+                        audio: false
+                    };
+
+                    this.stream = await navigator.mediaDevices.getUserMedia(constraints);
+                    this.videoStream.srcObject = this.stream;
+                    
+                    // Зеркалим видео для фронтальной камеры
+                    if (this.facingMode === 'user') {
+                        this.videoStream.classList.add('selfie-mirror');
+                    } else {
+                        this.videoStream.classList.remove('selfie-mirror');
+                    }
+                    
+                    await new Promise((resolve) => {
+                        this.videoStream.onloadedmetadata = resolve;
                     });
-                    this.video.srcObject = this.stream;
-                } catch (err) {
-                    console.error("Error accessing camera: ", err);
-                    this.showError("Не удалось получить доступ к камере.");
+                    
+                    console.log(`Камера запущена: ${this.videoStream.videoWidth}x${this.videoStream.videoHeight}`);
+                    
+                    const track = this.stream.getVideoTracks()[0];
+                    if (window.ImageCapture) {
+                        try {
+                            this.imageCapture = new ImageCapture(track);
+                            console.log('ImageCapture API is available.');
+                        } catch (e) {
+                            console.error('Failed to create ImageCapture:', e);
+                            this.imageCapture = null;
+                        }
+                    } else {
+                        console.log('ImageCapture API is not available.');
+                    }
+                    
+                    this.updatePhotosRemaining();
+                    
+                } catch (error) {
+                    console.error('Camera error:', error);
+                    try {
+                        this.stream = await navigator.mediaDevices.getUserMedia({
+                            video: { facingMode: this.facingMode },
+                            audio: false
+                        });
+                        this.videoStream.srcObject = this.stream;
+                        
+                        await new Promise((resolve) => {
+                            this.videoStream.onloadedmetadata = resolve;
+                        });
+                        
+                        this.updatePhotosRemaining();
+                    } catch (fallbackError) {
+                        console.error('Fallback camera error:', fallbackError);
+                        throw new Error('Не удалось получить доступ к камере');
+                    }
                 }
             }
 
-            showCameraScreen() {
-                this.welcomeScreen.classList.add('hidden');
-                this.cameraScreen.classList.remove('hidden');
-                this.updateUI();
-            }
-
-            updateUI() {
-                this.photosRemainingSpan.textContent = `${this.maxPhotos - this.photoCount} осталось`;
-                this.photosTakenSpan.textContent = this.photoCount.toString();
-                this.captureBtn.disabled = this.photoCount >= this.maxPhotos || this.isUploading;
-            }
-
-            async startCaptureSequence() {
-                if (this.isUploading) return;
-
-                this.isUploading = true;
-                this.captureBtn.disabled = true;
-
-                this.showCountdown();
-
-                const timer = 3;
-                for (let i = timer; i > 0; i--) {
-                    this.countdownNumber.textContent = i;
-                    await this.sleep(1000);
-                }
-                
-                this.hideCountdown();
-
-                // Play flash animation
-                this.video.style.transform = `scale(1.1) ${this.video.classList.contains('selfie-mirror') ? 'scaleX(-1)' : ''}`;
-                this.video.style.filter = 'brightness(2.0)';
-                await this.sleep(100);
-                this.video.style.transform = `scale(1) ${this.video.classList.contains('selfie-mirror') ? 'scaleX(-1)' : ''}`;
-                this.video.style.filter = 'brightness(1.0)';
-                
-                await this.capturePhoto();
-                
-                this.isUploading = false;
-                this.updateUI();
-            }
-
-            async capturePhoto() {
-                // Create a canvas with the target resolution for Telegram
-                const canvas = document.createElement('canvas');
-                const targetWidth = 1080;
-                const targetHeight = 1920;
-                canvas.width = targetWidth;
-                canvas.height = targetHeight;
-                const ctx = canvas.getContext('2d');
-
-                // Get video dimensions
-                const videoWidth = this.video.videoWidth;
-                const videoHeight = this.video.videoHeight;
-                const videoRatio = videoWidth / videoHeight;
-                const targetRatio = targetWidth / targetHeight;
-
-                let drawWidth, drawHeight, x = 0, y = 0;
-
-                // Calculate crop to maintain aspect ratio
-                if (videoRatio > targetRatio) {
-                    // Video is wider than target, crop horizontally
-                    drawHeight = videoHeight;
-                    drawWidth = videoHeight * targetRatio;
-                    x = (videoWidth - drawWidth) / 2;
-                } else {
-                    // Video is taller than target, crop vertically
-                    drawWidth = videoWidth;
-                    drawHeight = videoWidth / targetRatio;
-                    y = (videoHeight - drawHeight) / 2;
-                }
-                
-                // Draw the video frame onto the canvas, applying the mirror effect if needed
-                ctx.translate(canvas.width / 2, canvas.height / 2);
-                if (this.video.classList.contains('selfie-mirror')) {
-                    ctx.scale(-1, 1); // Flip horizontally for selfie mirroring
-                }
-                ctx.drawImage(this.video, x, y, drawWidth, drawHeight, -canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
-                
-                // Reset canvas transform
-                ctx.setTransform(1, 0, 0, 1, 0, 0);
-
-                const photoDataUrl = canvas.toDataURL('image/jpeg', 0.9);
-                const photoBlob = await (await fetch(photoDataUrl)).blob();
-                
-                this.photoCount++;
-                this.addPhotoToGallery(photoDataUrl, photoBlob);
-
-                // Telegram upload
-                this.showUploadProgress();
-                await this.uploadToTelegram(photoBlob);
-                this.hideUploadProgress();
-            }
-            
-            addPhotoToGallery(dataUrl, blob) {
-                const photo = {
-                    id: Date.now(),
-                    dataUrl: dataUrl,
-                    blob: blob
-                };
-                this.photos.push(photo);
-                
-                const miniPhotoEl = document.createElement('div');
-                miniPhotoEl.className = 'photo-mini';
-                const img = document.createElement('img');
-                img.src = dataUrl;
-                miniPhotoEl.appendChild(img);
-                this.photoGallery.prepend(miniPhotoEl);
-                
-                miniPhotoEl.addEventListener('click', () => this.openFullGalleryWithPhoto(photo.id));
-
-                this.updateGalleryGrid();
-            }
-
-            updateGalleryGrid() {
-                this.fullGalleryGrid.innerHTML = '';
-                this.photos.forEach(photo => {
-                    const galleryItem = document.createElement('div');
-                    galleryItem.className = 'gallery-item';
-                    const img = document.createElement('img');
-                    img.src = photo.dataUrl;
-                    galleryItem.appendChild(img);
-                    this.fullGalleryGrid.appendChild(galleryItem);
-                });
-            }
-
-            openGalleryModal() {
+            openGallery() {
+                this.renderGallery();
                 this.galleryModal.classList.add('active');
             }
 
-            closeGalleryModal() {
+            closeGallery() {
                 this.galleryModal.classList.remove('active');
             }
 
-            openFullGalleryWithPhoto(photoId) {
-                this.openGalleryModal();
+            renderGallery() {
+                if (!this.userName) return;
+                const photos = JSON.parse(localStorage.getItem(`weddingPhotos_${this.userName}`) || '[]');
+                this.galleryGrid.innerHTML = '';
+                
+                photos.forEach((dataUrl, index) => {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.className = 'gallery-item';
+                    galleryItem.innerHTML = `<img src="${dataUrl}" alt="Photo ${index + 1}">`;
+                    this.galleryGrid.appendChild(galleryItem);
+                });
             }
-            
-            async uploadToTelegram(photoBlob) {
-                const formData = new FormData();
-                formData.append('photo', photoBlob, 'photo.jpg');
-                formData.append('chat_id', TELEGRAM_CHAT_ID);
-                formData.append('caption', `🎉 Новое фото от ${this.guestName}!`);
+
+            async downloadAllPhotos() {
+                if (!this.userName) return;
+                const photos = JSON.parse(localStorage.getItem(`weddingPhotos_${this.userName}`) || '[]');
+                
+                if (photos.length === 0) {
+                    this.showError('Нет фотографий для скачивания');
+                    return;
+                }
 
                 try {
-                    const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, {
-                        method: 'POST',
-                        body: formData
-                    });
+                    const zip = new JSZip();
+                    const folder = zip.folder(`Фотографии_${this.userName}`);
 
-                    if (response.ok) {
-                        this.showSuccess();
-                        this.photoCount < this.maxPhotos;
-                    } else {
-                        const errorData = await response.json();
-                        this.showError(`Ошибка Telegram: ${errorData.description}`);
+                    for (let i = 0; i < photos.length; i++) {
+                        const dataUrl = photos[i];
+                        const blob = this.dataURLToBlob(dataUrl);
+                        folder.file(`Фото_${i + 1}.jpg`, blob);
                     }
+
+                    const content = await zip.generateAsync({type: "blob"});
+                    saveAs(content, `Фотографии_${this.userName}.zip`);
+                    this.showSuccess('Все фотографии скачаны');
                 } catch (error) {
-                    console.error('Error uploading to Telegram:', error);
-                    this.showError('Не удалось отправить фото в Telegram.');
+                    console.error('Download error:', error);
+                    this.showError('Ошибка при скачивании');
                 }
             }
 
-            endSession() {
+            dataURLToBlob(dataUrl) {
+                const arr = dataUrl.split(',');
+                const mime = arr[0].match(/:(.*?);/)[1];
+                const bstr = atob(arr[1]);
+                let n = bstr.length;
+                const u8arr = new Uint8Array(n);
+                while (n--) {
+                    u8arr[n] = bstr.charCodeAt(n);
+                }
+                return new Blob([u8arr], {type: mime});
+            }
+
+            async switchCamera() {
+                this.facingMode = this.facingMode === 'user' ? 'environment' : 'user';
+                await this.startCamera();
+            }
+
+            closeCamera() {
                 if (this.stream) {
                     this.stream.getTracks().forEach(track => track.stop());
                 }
                 this.cameraScreen.classList.add('hidden');
                 this.welcomeScreen.classList.remove('hidden');
-                this.guestNameInput.value = '';
-                this.photoCount = 0;
-                this.photos = [];
-                this.photoGallery.innerHTML = '';
-                this.checkGuestName();
-            }
-            
-            async toggleFlash() {
-                const flashEl = this.cameraScreen;
-                flashEl.classList.add('animate-flash');
-                await this.sleep(300); // Wait for the animation
-                flashEl.classList.remove('animate-flash');
             }
 
-            sleep(ms) {
-                return new Promise(resolve => setTimeout(resolve, ms));
-            }
-            
-            showCountdown() {
-                this.countdownOverlay.classList.remove('hidden');
+            updatePhotosRemaining() {
+                const remaining = this.maxPhotos - this.photoCount;
+                this.photosRemainingEl.textContent = `${remaining} осталось`;
+                
+                if (remaining <= 0) {
+                    this.captureBtn.disabled = true;
+                    this.photosRemainingEl.textContent = 'Лимит достигнут';
+                    this.photosRemainingEl.className = 'text-red-400 text-sm font-bold';
+                } else {
+                    this.captureBtn.disabled = false;
+                    this.photosRemainingEl.className = 'text-white text-sm font-bold';
+                }
             }
 
-            hideCountdown() {
-                this.countdownOverlay.classList.add('hidden');
+            async capturePhoto() {
+                if (this.isCapturing || this.photoCount >= this.maxPhotos) return;
+                
+                this.isCapturing = true;
+                this.showCaptureLoading();
+                this.showInstantCapture();
+
+                try {
+                    let imageBitmap;
+                    
+                    if (this.imageCapture) {
+                        console.log('Capturing with ImageCapture API');
+                        const photoBlob = await this.imageCapture.takePhoto();
+                        imageBitmap = await createImageBitmap(photoBlob);
+                    } else {
+                        console.log('Capturing with canvas fallback');
+                        const videoWidth = this.videoStream.videoWidth;
+                        const videoHeight = this.videoStream.videoHeight;
+                        this.canvas.width = videoWidth;
+                        this.canvas.height = videoHeight;
+                        
+                        this.ctx.drawImage(this.videoStream, 0, 0, videoWidth, videoHeight);
+                        imageBitmap = await createImageBitmap(this.canvas);
+                    }
+
+                    // Создаем целевой canvas с размером 1080x1920
+                    const targetCanvas = document.createElement('canvas');
+                    targetCanvas.width = 1080;
+                    targetCanvas.height = 1920;
+                    const targetCtx = targetCanvas.getContext('2d');
+
+                    // Определяем, нужно ли отражать изображение (для фронтальной камеры)
+                    const flipHorizontal = this.facingMode === 'user';
+
+                    // Вычисляем параметры отрисовки для сохранения пропорций
+                    const sourceAspect = imageBitmap.width / imageBitmap.height;
+                    const targetAspect = targetCanvas.width / targetCanvas.height;
+
+                    let drawWidth, drawHeight, offsetX, offsetY;
+
+                    if (sourceAspect > targetAspect) {
+                        // Источник шире цели -> обрезаем по бокам
+                        drawHeight = targetCanvas.height;
+                        drawWidth = imageBitmap.width * (drawHeight / imageBitmap.height);
+                        offsetX = (targetCanvas.width - drawWidth) / 2;
+                        offsetY = 0;
+                    } else {
+                        // Источник уже цели -> обрезаем сверху и снизу
+                        drawWidth = targetCanvas.width;
+                        drawHeight = imageBitmap.height * (drawWidth / imageBitmap.width);
+                        offsetX = 0;
+                        offsetY = (targetCanvas.height - drawHeight) / 2;
+                    }
+
+                    // Если нужно отразить по горизонтали (для фронтальной камеры)
+                    if (flipHorizontal) {
+                        targetCtx.translate(targetCanvas.width, 0);
+                        targetCtx.scale(-1, 1);
+                        offsetX = targetCanvas.width - offsetX - drawWidth;
+                    }
+
+                    // Рисуем изображение на целевом canvas
+                    targetCtx.drawImage(imageBitmap, 0, 0, imageBitmap.width, imageBitmap.height, offsetX, offsetY, drawWidth, drawHeight);
+
+                    // Сбрасываем трансформацию
+                    targetCtx.setTransform(1, 0, 0, 1, 0, 0);
+
+                    // Добавляем водяной знак
+                    this.addElegantWatermark(targetCtx, targetCanvas.width, targetCanvas.height, this.userName);
+
+                    // Получаем blob из targetCanvas
+                    const blob = await new Promise(resolve => targetCanvas.toBlob(resolve, 'image/jpeg', 0.9));
+
+                    // Создаем dataURL для миниатюры
+                    const thumbnailUrl = targetCanvas.toDataURL('image/jpeg', 0.7);
+                    this.addPhotoThumbnail(thumbnailUrl);
+                    
+                    this.photoCount++;
+                    this.updatePhotoCounter();
+                    this.updatePhotosRemaining();
+
+                    // Отправляем blob на сервер
+                    await this.uploadPhoto(blob);
+
+                    // Освобождаем ресурсы
+                    imageBitmap.close();
+
+                } catch (error) {
+                    console.error('Capture failed:', error);
+                    this.showError('Ошибка при съёмке фото');
+                    this.photoCount--;
+                    this.updatePhotoCounter();
+                    this.updatePhotosRemaining();
+                } finally {
+                    this.isCapturing = false;
+                    this.hideCaptureLoading();
+                }
+            }
+
+            showInstantCapture() {
+                const flash = document.createElement('div');
+                flash.className = 'fixed inset-0 bg-white z-50 pointer-events-none';
+                flash.style.opacity = '0.8';
+                document.body.appendChild(flash);
+                
+                setTimeout(() => {
+                    flash.style.opacity = '0';
+                    setTimeout(() => document.body.removeChild(flash), 200);
+                }, 100);
+            }
+
+            addElegantWatermark(ctx, width, height, userName) {
+                const text = `${userName} • Илья & Алина • 28.08.2025`;
+                const fontSize = Math.max(24, width / 60);
+                
+                ctx.font = `bold ${fontSize}px Inter, sans-serif`;
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+                ctx.strokeStyle = 'rgba(244, 63, 94, 0.8)';
+                ctx.lineWidth = Math.max(2, fontSize / 12);
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.6)';
+                ctx.shadowBlur = fontSize / 2;
+                ctx.shadowOffsetX = 2;
+                ctx.shadowOffsetY = 2;
+                
+                const x = width / 2;
+                const y = height - (fontSize / 2);
+                
+                ctx.strokeText(text, x, y);
+                ctx.fillText(text, x, y);
+                
+                ctx.shadowColor = 'transparent';
+                ctx.shadowBlur = 0;
+                ctx.shadowOffsetX = 0;
+                ctx.shadowOffsetY = 0;
+            }
+
+            async uploadPhoto(blob) {
+                return new Promise((resolve, reject) => {
+                    try {
+                        this.showUploadProgress();
+        
+                        const formData = new FormData();
+                        const fileName = `${this.userName}_${Date.now()}.jpg`;
+                        const file = new File([blob], fileName, { 
+                            type: 'image/jpeg',
+                            lastModified: Date.now()
+                        });
+                        
+                        formData.append('photo', file);
+                        formData.append('userName', this.userName);
+        
+                        const xhr = new XMLHttpRequest();
+                        xhr.open('POST', `${this.serverUrl}/send-photo`);
+        
+                        xhr.upload.onprogress = (event) => {
+                            if (event.lengthComputable) {
+                                const percentComplete = (event.loaded / event.total) * 100;
+                                this.updateUploadProgress(percentComplete);
+                            }
+                        };
+        
+                        xhr.onload = () => {
+                            this.hideUploadProgress();
+                            if (xhr.status >= 200 && xhr.status < 300) {
+                                const result = JSON.parse(xhr.responseText);
+                                console.log('Фото успешно отправлено:', result);
+                                resolve(result);
+                            } else {
+                                const error = new Error(`HTTP ${xhr.status}: ${xhr.responseText.substring(0, 100)}`);
+                                reject(error);
+                            }
+                        };
+        
+                        xhr.onerror = () => {
+                            this.hideUploadProgress();
+                            const error = new Error('Сетевая ошибка при отправке.');
+                            reject(error);
+                        };
+        
+                        xhr.send(formData);
+                        console.log(`Отправляем фото: ${fileName}, размер: ${blob.size} байт`);
+        
+                    } catch (error) {
+                        this.hideUploadProgress();
+                        reject(error);
+                    }
+                });
+            }
+
+            addPhotoThumbnail(dataUrl) {
+                this.renderThumbnail(dataUrl);
+
+                if (!this.userName) return;
+                const photos = JSON.parse(localStorage.getItem(`weddingPhotos_${this.userName}`) || '[]');
+                photos.push(dataUrl);
+                localStorage.setItem(`weddingPhotos_${this.userName}`, JSON.stringify(photos));
+            }
+
+            renderThumbnail(dataUrl) {
+                const thumbnail = document.createElement('div');
+                thumbnail.className = 'photo-mini slide-in-elegant relative overflow-hidden';
+                
+                const img = document.createElement('img');
+                img.src = dataUrl;
+                img.className = 'w-full h-full object-cover';
+
+                thumbnail.appendChild(img);
+                
+                thumbnail.addEventListener('click', () => {
+                    this.openGallery();
+                });
+
+                this.photoGallery.prepend(thumbnail);
+                this.photoGallery.scrollLeft = 0;
+            }
+
+            loadUserPhotos() {
+                if (!this.userName) return;
+                const photos = JSON.parse(localStorage.getItem(`weddingPhotos_${this.userName}`) || '[]');
+                photos.forEach(dataUrl => this.renderThumbnail(dataUrl));
+                this.photoCount = photos.length;
+                this.updatePhotoCounter();
+                this.updatePhotosRemaining();
+            }
+
+            updatePhotoCounter() {
+                this.photosTakenEl.textContent = this.photoCount;
+            }
+
+            showCaptureLoading() {
+                this.cameraIcon.classList.add('hidden');
+                this.captureLoading.classList.remove('hidden');
+                this.captureBtn.disabled = true;
+            }
+
+            hideCaptureLoading() {
+                this.cameraIcon.classList.remove('hidden');
+                this.captureLoading.classList.add('hidden');
+                this.captureBtn.disabled = this.photoCount >= this.maxPhotos;
             }
 
             showUploadProgress() {
@@ -886,27 +1144,6 @@
                 setTimeout(() => {
                     this.errorNotification.classList.add('hidden');
                 }, 5000);
-            }
-
-            applyResponsiveStyles() {
-                const video = document.getElementById('video-stream');
-                window.addEventListener('resize', () => this.setVideoDimensions());
-                this.setVideoDimensions();
-            }
-
-            setVideoDimensions() {
-                const container = document.querySelector('.camera-container-full');
-                const width = container.clientWidth;
-                const height = container.clientHeight;
-                const aspect = 1080 / 1920; 
-
-                if (width / height > aspect) {
-                    this.video.style.width = '100%';
-                    this.video.style.height = 'auto';
-                } else {
-                    this.video.style.width = 'auto';
-                    this.video.style.height = '100%';
-                }
             }
         }
 
